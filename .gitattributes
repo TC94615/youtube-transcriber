@@ -1,0 +1,14 @@
+# .gitattributes
+
+* text=auto
+
+*.py text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+*.sh text eol=lf
+*.ps1 text eol=lf
+*.bat text eol=crlf
+
+*.log binary
+*.txt binary
+*.srt binary

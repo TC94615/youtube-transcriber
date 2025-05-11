@@ -1,0 +1,69 @@
+[project]
+name = "youtube-transcriber"
+version = "0.1.0"
+description = "A tool to transcribe YouTube videos using Whisper or FunASR."
+authors = [
+    { name = "TC94615", email = "TCLee0117@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "yt-dlp ==2025.4.30",
+    "torch ==2.7.0",
+    "torchaudio ==2.7.0"
+]
+
+[project.optional-dependencies]
+whisper = [
+    "openai-whisper ==20240930",
+    "librosa ==0.11.0",
+    "soundfile ==0.13.1",
+    "regex ==2024.11.6",
+    "tqdm ==4.67.1"
+]
+funasr = [
+    "funasr ==1.2.6",
+    "modelscope ==1.25.0",
+    "sentencepiece ==0.2.0",
+    "jieba ==0.42.1",
+    "soxr ==0.5.0.post1"
+]
+onnx = [
+    "onnx ==1.17.0",
+    "onnxruntime ==1.21.0",
+    "funasr-onnx ==0.4.1"
+]
+all = [
+    "openai-whisper ==20240930",
+    "librosa ==0.11.0",
+    "soundfile ==0.13.1",
+    "regex ==2024.11.6",
+    "tqdm ==4.67.1",
+    "funasr ==1.2.6",
+    "modelscope ==1.25.0",
+    "sentencepiece ==0.2.0",
+    "jieba ==0.42.1",
+    "soxr ==0.5.0.post1",
+    "onnx ==1.17.0",
+    "onnxruntime ==1.21.0",
+    "funasr-onnx ==0.4.1"
+]
+dev = [
+    "black ==24.10.0",
+    "flake8 ==7.2.0",
+    "isort ==5.13.2",
+    "mypy ==1.15.0",
+    "pytest ==8.3.5"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+youtube-transcriber = "youtube_transcriber.__main__:main"
+
+[tool.poetry]
+packages = [
+    { include = "youtube_transcriber", from = "src" }
+]
