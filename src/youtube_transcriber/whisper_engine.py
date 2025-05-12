@@ -1,9 +1,10 @@
 import os
 import whisper
+from youtube_transcriber.logger import logger
 
 
 def transcribe_with_whisper(audio_file, output_dir, model_size="base", language=None):
-    print(f"[Whisper] 使用 {model_size} 模型進行轉錄")
+    logger.info(f"[Whisper] 使用 {model_size} 模型進行轉錄")
     model = whisper.load_model(model_size)
     result = model.transcribe(audio_file, language=language)
 

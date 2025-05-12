@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from modelscope.pipelines import pipeline as asr_pipeline
 from modelscope.utils.constant import Tasks
+from youtube_transcriber.logger import logger
 
 
 def transcribe_with_funasr(audio_file, output_dir, model_type="paraformer-zh"):
@@ -16,7 +17,7 @@ def transcribe_with_funasr(audio_file, output_dir, model_type="paraformer-zh"):
 
     model_id = model_mapping.get(model_type, model_mapping["paraformer-zh"])
 
-    print(f"[FunASR] 使用模型 {model_type} 進行轉錄 (ID: {model_id})")
+    logger.info(f"[FunASR] 使用模型 {model_type} 進行轉錄 (ID: {model_id})")
     inference_pipeline = asr_pipeline(
         task=Tasks.auto_speech_recognition, model=model_id
     )

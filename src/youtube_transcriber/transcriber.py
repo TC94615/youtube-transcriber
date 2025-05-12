@@ -2,6 +2,7 @@ import os
 import whisper
 from youtube_transcriber.whisper_engine import transcribe_with_whisper
 from youtube_transcriber.funasr_engine import transcribe_with_funasr
+from youtube_transcriber.logger import logger
 
 
 def detect_language(audio_file):
@@ -12,7 +13,7 @@ def detect_language(audio_file):
     mel = whisper.log_mel_spectrogram(audio).to(model.device)
     _, probs = model.detect_language(mel)
     detected_lang = max(probs, key=probs.get)
-    print(f"檢測到語言: {detected_lang}")
+    logger.info(f"檢測到語言: {detected_lang}")
     return detected_lang
 
 
