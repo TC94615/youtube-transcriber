@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 import whisper
 from youtube_transcriber.logger import logger
 
@@ -8,15 +8,15 @@ def transcribe_with_whisper(audio_file, output_dir, model_size="base", language=
     model = whisper.load_model(model_size)
     result = model.transcribe(audio_file, language=language)
 
-    base_filename = os.path.splitext(os.path.basename(audio_file))[0]
-    text_path = os.path.join(output_dir, f"{base_filename}.txt")
-    srt_path = os.path.join(output_dir, f"{base_filename}.srt")
+    base_filename = Path(audio_file).stem
+    text_path = Path(output_dir) / f"{base_filename}.txt"
+    srt_path = Path(output_dir) / f"{base_filename}.srt"
 
-    with open(text_path, "w", encoding="utf-8") as f:
+    with open(str(text_path), "w", encoding="utf-8") as f:
         f.write(result["text"])
 
     # 寫入 SRT 檔案（簡單實作）
-    with open(srt_path, "w", encoding="utf-8") as f:
+    with open(str(srt_path), "w", encoding="utf-8") as f:
         for i, seg in enumerate(result.get("segments", []), 1):
             start = format_timestamp(seg["start"])
             end = format_timestamp(seg["end"])

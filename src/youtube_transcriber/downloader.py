@@ -1,4 +1,5 @@
 import yt_dlp
+from pathlib import Path
 import os
 import re
 
@@ -29,7 +30,7 @@ def download_audio(url, output_dir):
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
-        'outtmpl': os.path.join(output_dir, base_filename),  # 使用清理過的檔名
+        'outtmpl': str(Path(output_dir) / base_filename),  # 使用清理過的檔名
         'quiet': False,
         'no_warnings': False
     }
@@ -38,5 +39,5 @@ def download_audio(url, output_dir):
         ydl.download([url])
         print(f"原始標題: {original_title}")
         print(f"安全檔名: {base_filename}")
-        audio_file = os.path.join(output_dir, f"{base_filename}.mp3")
+        audio_file = str(Path(output_dir) / f"{base_filename}.mp3")
         return audio_file

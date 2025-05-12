@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from modelscope.pipelines import pipeline as asr_pipeline
 from modelscope.utils.constant import Tasks
@@ -24,8 +23,8 @@ def transcribe_with_funasr(audio_file, output_dir, model_type="paraformer-zh"):
     result = inference_pipeline(audio_file)
 
     base_filename = Path(audio_file).stem
-    text_path = os.path.join(output_dir, f"{base_filename}.txt")
-    srt_path = os.path.join(output_dir, f"{base_filename}.srt")
+    text_path = Path(output_dir) / f"{base_filename}.txt"
+    srt_path = Path(output_dir) / f"{base_filename}.srt"
 
     # 處理可能為 list 的情況
     if isinstance(result, list):
@@ -36,11 +35,11 @@ def transcribe_with_funasr(audio_file, output_dir, model_type="paraformer-zh"):
     text_result = result.get("text", "").strip()
 
     # 寫入純文字
-    with open(text_path, "w", encoding="utf-8") as f:
+    with open(str(text_path), "w", encoding="utf-8") as f:
         f.write(text_result)
 
     # 寫入 SRT（簡單版本）
-    with open(srt_path, "w", encoding="utf-8") as f:
+    with open(str(srt_path), "w", encoding="utf-8") as f:
         f.write("1\n00:00:00,000 --> 99:59:59,999\n")
         f.write(f"{text_result}\n\n")
 
